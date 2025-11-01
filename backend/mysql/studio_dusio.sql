@@ -32,7 +32,9 @@ CREATE TABLE `alerts` (
   `date` datetime NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
-  `featured` tinyint(1) NOT NULL DEFAULT '0'
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `popup` tinyint(1) NOT NULL DEFAULT '0',
+  `popup_until` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

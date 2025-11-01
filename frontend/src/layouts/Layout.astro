@@ -5,6 +5,7 @@ import "../styles/global.css";
 
 import Header from "../components/Sections/Header.astro";
 import Footer from "../components/Sections/Footer.astro";
+import PopupAlert from "../components/PopupAlert.astro";
 ---
 
 <!doctype html>
@@ -22,6 +23,7 @@ import Footer from "../components/Sections/Footer.astro";
   </head>
   <body>
     <Header />
+    <PopupAlert />
     <main class="mt-[67px] lg:mt-[120px]">
       <slot />
     </main>

@@ -215,6 +215,12 @@ $alerts = $stmt->fetchAll();
                     <input type="checkbox" name="set_featured"> Imposta come avviso in evidenza
                 </label>
             </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="set_popup"> Mostra come popup fino al <input type="date" name="popup_until">
+                </label>
+            </div>
             
             <button type="submit" class="submit-btn">Crea Avviso</button>
         </form>

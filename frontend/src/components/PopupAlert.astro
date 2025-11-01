@@ -1,0 +1,56 @@
+---
+import Icon from "./Typography/Icon.astro";
+import Button from "./Button.astro";
+import P from "./Typography/P.astro";
+import H3 from "./Typography/H3.astro";
+---
+
+<div
+  id="popupAlert"
+  class="fixed w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.5)] z-50 hidden"
+>
+  <div>
+    <div
+      class="relative bg-white flex flex-col gap-4 justify-center p-8 max-w-4xl mx-auto mt-32"
+    >
+      <button id="closeModal" class="cursor-pointer absolute top-4 right-4">
+        <Icon icon="fa-xmark" class="text-3xl" />
+      </button>
+      <div
+        class="rounded-lg bg-blue-2 flex items-center gap-4 text-blue font-display text-xl px-4 py-2 w-fit"
+      >
+        <Icon icon="fa-bell" class="text-2xl" />
+        <p>Nuovo Avviso</p>
+      </div>
+      <H3 id="popupTitle">Titolo Avviso</H3>
+      <P id="popupText">Descrizione dell'avviso</P>
+      <Button href="/avvisi" primary>
+        Leggi tutto <Icon icon="fa-chevron-right" class="text-white" />
+      </Button>
+    </div>
+  </div>
+</div>
+
+<script>
+  fetch("https://www.studiodusio.it/get.php?what=popup-alert")
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data) {
+        return;
+      }
+
+      if (sessionStorage.getItem("popupShown") === "true") {
+        return;
+      }
+
+      document.getElementById("popupTitle").innerText = data.title;
+      document.getElementById("popupText").innerText = data.text;
+      document.getElementById("popupAlert").classList.remove("hidden");
+
+      sessionStorage.setItem("popupShown", "true");
+    });
+
+  document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("popupAlert").classList.add("hidden");
+  });
+</script>

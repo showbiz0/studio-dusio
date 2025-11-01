@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $title = trim($_POST['title']);
                 $text = trim($_POST['text']);
                 $set_featured = isset($_POST['set_featured']) ? 1 : 0;
+                $set_popup = isset($_POST['set_popup']) ? 1 : 0;
+                $popup_until = isset($_POST['set_popup']) ? $_POST['popup_until'] : null;
                 
                 if (!empty($title) && !empty($text)) {
                     // If this alert is to be featured, unfeature all other alerts first
@@ -43,9 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $stmt = $pdo->prepare('UPDATE alerts SET featured = 0');
                         $stmt->execute();
                     }
-                    
-                    $stmt = $pdo->prepare('INSERT INTO alerts (date, title, text, featured) VALUES (NOW(), ?, ?, ?)');
-                    $stmt->execute([$title, $text, $set_featured]);
+
+                    // If this alert is to be a popup, disable popup on other alerts
+                    if ($set_popup) {
+                        $stmt = $pdo->prepare('UPDATE alerts SET popup = 0, popup_until = NULL');
+                        $stmt->execute();
+                    }
+
+                    $stmt = $pdo->prepare('INSERT INTO alerts (date, title, text, featured, popup, popup_until) VALUES (NOW(), ?, ?, ?, ?, ?)');
+                    $stmt->execute([$title, $text, $set_featured, $set_popup, $popup_until]);
                     header('Location: admin.php');
                     exit;
                 }
