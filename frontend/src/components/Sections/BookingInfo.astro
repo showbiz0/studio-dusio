@@ -31,12 +31,11 @@ const { class: className, ...rest } = Astro.props;
   <div class="md:w-3/4 px-5 py-2 rounded-lg border border-green">
     <P id="userRegisteredText">
       Se è la <strong>prima volta</strong> che prenoti una visita in ambulatorio
-      (come <strong> non registrato</strong>), devi recarti in studio negli
-      orari di segreteria presentando alla segretaria il nuovo <strong
-        >tesserino sanitario cartaceo</strong
-      >. Dopo la registrazione potrai utilizzare il link <strong
-        >cupmedico.it</strong
-      >.
+      (con codice fiscale <strong
+        >NON registrato nel programma del Dott. Dusio</strong
+      >), devi recarti in studio negli orari di segreteria presentando alla
+      segretaria il nuovo <strong>tesserino sanitario cartaceo</strong>. Dopo la
+      registrazione potrai utilizzare il link <strong>cupmedico.it</strong>.
     </P>
   </div>
 </section>
@@ -45,7 +44,7 @@ const { class: className, ...rest } = Astro.props;
   // Text that appears when the user selects "Sono registrato/a" and "Non sono registrato/a"
   function changeUserRegistered(registered: boolean) {
     const userNotRegistered =
-      "Se è la <strong>prima volta</strong> che prenoti una visita in ambulatorio (come <strong> non registrato</strong>), devi recarti in studio negli orari di segreteria presentando alla segretaria il nuovo <strong>tesserino sanitario cartaceo</strong>. Dopo la registrazione potrai utilizzare il link <strong>cupmedico.it</strong>.";
+      "Se è la <strong>prima volta</strong> che prenoti una visita in ambulatorio (con codice fiscale <strong>NON registrato nel programma del Dott. Dusio</strong>), devi recarti in studio negli orari di segreteria presentando alla segretaria il nuovo <strong>tesserino sanitario cartaceo</strong>. Dopo la registrazione potrai utilizzare il link <strong>cupmedico.it</strong>.";
     const userRegistered =
       'Puoi utilizzare <strong>cupmedico.it</strong> per <strong>prenotare</strong> online visite ambulatoriali, <strong>visualizzare</strong> il tuo appuntamento, modificarlo o <strong>disdirlo</strong> e controllare la <strong>disponibilità</strong> del dottore. Non sai come si fa? Guarda la guida <a class="underline" href="/static/tutorial-cap-medico-studio-dusio.mp4" target="_blank"><strong>QUI</strong></a>.';
     const activeButtonStyle =

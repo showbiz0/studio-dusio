@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import PageTitle from "../components/PageTitle.astro";
+import BookingInfo from "../components/Sections/BookingInfo.astro";
+---
+
+<Layout>
+  <PageTitle
+    breadcrumbs={[
+      { text: "HOME", url: "/" },
+      { text: "PRENOTA", url: "/prenota" },
+    ]}
+    title="Prenotazioni online"
+  />
+  <section
+    class="flex flex-col-reverse md:flex-row px-4 py-8 xl:px-36 lg:px-18 md:px-9 md:py-12 gap-10 md:gap-20 items-center bg-blue-2"
+  >
+    <BookingInfo />
+  </section>
+</Layout>
