@@ -76,7 +76,8 @@ const { class: className, ...rest } = Astro.props;
   document
     .getElementById("userRegisteredButton")
     ?.addEventListener("click", () => {
-      changeUserRegistered(true);
+      //changeUserRegistered(true);
+      window.location.href = "https://cupmedico.it";
     });
   document
     .getElementById("userNotRegisteredButton")
