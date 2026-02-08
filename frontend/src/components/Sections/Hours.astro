@@ -87,8 +87,8 @@ const currentMonth = new Date().toLocaleString("it-IT", { month: "short" });
     const now = new Date();
     const month = now.toLocaleString("it-IT", { month: "short" });
     const year = now.getFullYear().toString().slice(-2);
-    const dateText = `${month} - ${year}`;
+    const dateText = `${month} ${year}`;
 
-    document.getElementById("orari-ambulatoriali")!.textContent = dateText;
-    document.getElementById("orari-segreteria")!.textContent = dateText;
+    document.getElementById("orari-ambulatoriali")!.textContent = `Orari - ${dateText}`;
+    document.getElementById("orari-segreteria")!.textContent = `Orari - ${dateText}`;
 </script>
