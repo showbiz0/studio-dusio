@@ -1,10 +1,10 @@
 ---
-const { icon = "fa-stethoscope" } = Astro.props;
+const { icon = "fa-stethoscope", id } = Astro.props;
 ---
 
 <div class="flex gap-4 items-center">
     <i class:list={["fas text-blue font-bold text-xl md:text-2xl", icon]}></i>
-    <h4 class="text-blue text-xl md:text-2xl font-display">
+    <h4 id={id} class="text-blue text-xl md:text-2xl font-display">
         <slot />
     </h4>
 </div>
