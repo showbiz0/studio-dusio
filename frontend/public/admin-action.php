@@ -84,6 +84,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
             break;
+        case 'remove_featured':
+            if (isset($_POST['alert_id'])) {
+                $id = (int)$_POST['alert_id'];
+                
+                // Remove featured status
+                $stmt = $pdo->prepare('UPDATE alerts SET featured = 0 WHERE id = ?');
+                $stmt->execute([$id]);
+                
+                header('Location: admin.php');
+                exit;
+            }
+            break;
+        case 'set_as_popup':
+            if (isset($_POST['alert_id']) && isset($_POST['popup_until'])) {
+                $id = (int)$_POST['alert_id'];
+                $popup_until = $_POST['popup_until'];
+                
+                // First, disable popup on all other alerts
+                $stmt = $pdo->prepare('UPDATE alerts SET popup = 0, popup_until = NULL');
+                $stmt->execute();
+                
+                // Then, set the selected alert as popup
+                $stmt = $pdo->prepare('UPDATE alerts SET popup = 1, popup_until = ? WHERE id = ?');
+                $stmt->execute([$popup_until, $id]);
+                
+                header('Location: admin.php');
+                exit;
+            }
+            break;
+        case 'remove_popup':
+            if (isset($_POST['alert_id'])) {
+                $id = (int)$_POST['alert_id'];
+                
+                // Remove popup status
+                $stmt = $pdo->prepare('UPDATE alerts SET popup = 0, popup_until = NULL WHERE id = ?');
+                $stmt->execute([$id]);
+                
+                header('Location: admin.php');
+                exit;
+            }
+            break;
     }
 }
 
