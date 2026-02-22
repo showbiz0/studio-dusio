@@ -188,6 +188,9 @@ const { class: className, ...rest } = Astro.props;
       pastNoticesContainer.innerHTML =
         '<p class="text-center text-blue">Nessun avviso presente, ritorna più tardi</p>';
     }
+
+    // Show recent notices by default
+    recentNoticesContainer.classList.remove("hidden");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
