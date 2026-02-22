@@ -19,7 +19,7 @@ $stmt->execute();
 $all_reviews = $stmt->fetchAll();
 
 // Fetch all alerts
-$stmt = $pdo->prepare('SELECT id, date, title, text, featured FROM alerts ORDER BY date DESC');
+$stmt = $pdo->prepare('SELECT id, date, title, text, featured, popup, popup_until FROM alerts ORDER BY date DESC');
 $stmt->execute();
 $alerts = $stmt->fetchAll();
 ?>
@@ -173,13 +173,39 @@ $alerts = $stmt->fetchAll();
                 <div class="card">
                     <h3><?php echo htmlspecialchars($alert['title']); ?></h3>
                     <p><strong>Data:</strong> <?php echo htmlspecialchars($alert['date']); ?></p>
+                    <?php if ($alert['featured']): ?>
+                        <p><strong>Status:</strong> <span style="color: #4CAF50;">⭐ In Evidenza</span></p>
+                    <?php endif; ?>
+                    <?php if ($alert['popup']): ?>
+                        <p><strong>Popup:</strong> <span style="color: #2196F3;">🔔 Attivo fino al <?php echo htmlspecialchars($alert['popup_until']); ?></span></p>
+                    <?php endif; ?>
                     <p><?php echo nl2br(htmlspecialchars($alert['text'])); ?></p>
-                    <div class="actions">
+                    <div class="actions" style="display: flex; gap: 3rem; flex-wrap: wrap;">
                         <?php if (!$alert['featured']): ?>
                             <form method="post" action="admin-action.php" style="display: inline;">
                                 <input type="hidden" name="action" value="set_as_featured">
                                 <input type="hidden" name="alert_id" value="<?php echo $alert['id']; ?>">
                                 <button type="submit" class="approve" onclick="return confirm('Impostare questo avviso come avviso in evidenza? Sovrascriverà l\'avviso attualmente in evidenza se presente.')">Imposta in Evidenza</button>
+                            </form>
+                        <?php else: ?>
+                            <form method="post" action="admin-action.php" style="display: inline;">
+                                <input type="hidden" name="action" value="remove_featured">
+                                <input type="hidden" name="alert_id" value="<?php echo $alert['id']; ?>">
+                                <button type="submit" class="approve" style="background-color: #ff9800;">Rimuovi da Evidenza</button>
+                            </form>
+                        <?php endif; ?>
+                        <?php if (!$alert['popup']): ?>
+                            <form method="post" action="admin-action.php" style="display: inline;">
+                                <input type="hidden" name="action" value="set_as_popup">
+                                <input type="hidden" name="alert_id" value="<?php echo $alert['id']; ?>">
+                                Fino al: <input type="date" name="popup_until" required style="padding: 5px;">
+                                <button type="submit" class="approve" style="background-color: #2196F3;" onclick="return confirm('Impostare questo avviso come popup? Sovrascriverà il popup attualmente attivo se presente.')">Imposta come Popup</button>
+                            </form>
+                        <?php else: ?>
+                            <form method="post" action="admin-action.php" style="display: inline;">
+                                <input type="hidden" name="action" value="remove_popup">
+                                <input type="hidden" name="alert_id" value="<?php echo $alert['id']; ?>">
+                                <button type="submit" class="approve" style="background-color: #9E9E9E;">Rimuovi Popup</button>
                             </form>
                         <?php endif; ?>
                         <form method="post" action="admin-action.php" style="display: inline;">

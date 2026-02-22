@@ -180,17 +180,14 @@ const { class: className, ...rest } = Astro.props;
     if (recentNotices.length === 0) {
       recentNoticesContainer.className = "mt-5";
       recentNoticesContainer.innerHTML =
-        '<p class="text-center text-blue">Nessun avviso recente disponibile.</p>';
+        '<p class="text-center text-blue">Nessun avviso presente, ritorna più tardi</p>';
     }
 
     if (pastNotices.length === 0) {
       pastNoticesContainer.className = "mt-5 hidden";
       pastNoticesContainer.innerHTML =
-        '<p class="text-center text-blue">Nessun avviso passato disponibile.</p>';
+        '<p class="text-center text-blue">Nessun avviso presente, ritorna più tardi</p>';
     }
-
-    // Show recent notices by default
-    recentNoticesContainer.classList.remove("hidden");
   }
 
   document.addEventListener("DOMContentLoaded", () => {

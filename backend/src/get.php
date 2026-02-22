@@ -45,7 +45,7 @@ if (isset($_GET['what'])) {
             break;
         case 'popup-alert':
             // Return only the popup alert if within the valid date
-            $stmt = $pdo->prepare('SELECT id, date, title, text, popup_until FROM alerts WHERE popup = true');
+            $stmt = $pdo->prepare('SELECT id, date, title, text, popup_until FROM alerts WHERE popup = true ORDER BY date DESC LIMIT 1');
             $stmt->execute();
             $notice = $stmt->fetchAll();
             if (count($notice) > 0) {

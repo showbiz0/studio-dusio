@@ -39,7 +39,9 @@ import H3 from "./Typography/H3.astro";
         return;
       }
 
-      if (sessionStorage.getItem("popupShown") === "true") {
+      // Check if user already saw this specific alert (by ID)
+      const lastSeenAlertId = sessionStorage.getItem("lastSeenPopupAlertId");
+      if (lastSeenAlertId === String(data.id)) {
         return;
       }
 
@@ -47,7 +49,8 @@ import H3 from "./Typography/H3.astro";
       document.getElementById("popupText").innerText = data.text;
       document.getElementById("popupAlert").classList.remove("hidden");
 
-      sessionStorage.setItem("popupShown", "true");
+      // Store the alert ID instead of just a boolean
+      sessionStorage.setItem("lastSeenPopupAlertId", String(data.id));
     });
 
   document.getElementById("closeModal").addEventListener("click", () => {
